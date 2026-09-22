@@ -146,9 +146,6 @@ class LeadImporter
         $duplicates = 0;
         $errors = [];
 
-        $seenPhones = [];
-        $seenNames = [];
-
         foreach ($rows as $rowIndex => $row) {
             if ($this->rowIsEmpty($row)) {
                 continue;
@@ -167,37 +164,8 @@ class LeadImporter
                 continue;
             }
 
-            $phoneKey = $this->normalizePhone($phone);
-            $nameKey = $this->normalizeName($business);
-
-            $isDup = false;
-            if ($phoneKey !== '' && isset($seenPhones[$phoneKey])) {
-                $isDup = true;
-            } elseif ($nameKey !== '' && isset($seenNames[$nameKey])) {
-                $isDup = true;
-            } elseif ($this->isDuplicateLead($phone, $business)) {
-                $isDup = true;
-            }
-
-            if ($isDup) {
-                $duplicates++;
-                if ($phoneKey !== '') {
-                    $seenPhones[$phoneKey] = true;
-                }
-                if ($nameKey !== '') {
-                    $seenNames[$nameKey] = true;
-                }
-                continue;
-            }
-
             if ($this->insertLead($importId, $userId, $sourceLabel, $parsed)) {
                 $success++;
-                if ($phoneKey !== '') {
-                    $seenPhones[$phoneKey] = true;
-                }
-                if ($nameKey !== '') {
-                    $seenNames[$nameKey] = true;
-                }
             } else {
                 $failed++;
                 if (count($errors) < 20) {
@@ -213,10 +181,9 @@ class LeadImporter
         }
 
         $remarks = sprintf(
-            'Imported %d of %d rows. Duplicates: %d. Failed: %d.',
+            'Imported %d of %d rows. Failed: %d.',
             $success,
             $total,
-            $duplicates,
             $failed
         );
         if ($errors) {
@@ -258,8 +225,6 @@ class LeadImporter
         $failed = 0;
         $duplicates = 0;
         $errors = [];
-        $seenPhones = [];
-        $seenNames = [];
 
         foreach ($parsedRows as $rowIndex => $parsed) {
             if (!is_array($parsed)) {
@@ -282,28 +247,6 @@ class LeadImporter
             }
 
             $total++;
-            $phoneKey = $this->normalizePhone($phone);
-            $nameKey = $this->normalizeName($business);
-
-            $isDup = false;
-            if ($phoneKey !== '' && isset($seenPhones[$phoneKey])) {
-                $isDup = true;
-            } elseif ($nameKey !== '' && isset($seenNames[$nameKey])) {
-                $isDup = true;
-            } elseif ($this->isDuplicateLead($phone, $business)) {
-                $isDup = true;
-            }
-
-            if ($isDup) {
-                $duplicates++;
-                if ($phoneKey !== '') {
-                    $seenPhones[$phoneKey] = true;
-                }
-                if ($nameKey !== '') {
-                    $seenNames[$nameKey] = true;
-                }
-                continue;
-            }
 
             // Ensure all expected keys exist
             $parsed = array_merge([
@@ -316,12 +259,6 @@ class LeadImporter
 
             if ($this->insertLead($importId, $userId, $sourceLabel, $parsed)) {
                 $success++;
-                if ($phoneKey !== '') {
-                    $seenPhones[$phoneKey] = true;
-                }
-                if ($nameKey !== '') {
-                    $seenNames[$nameKey] = true;
-                }
             } else {
                 $failed++;
                 if (count($errors) < 20) {
@@ -337,10 +274,9 @@ class LeadImporter
         }
 
         $remarks = sprintf(
-            'Imported %d of %d rows. Duplicates: %d. Failed: %d.',
+            'Imported %d of %d rows. Failed: %d.',
             $success,
             $total,
-            $duplicates,
             $failed
         );
         if ($errors) {

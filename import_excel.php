@@ -99,7 +99,7 @@ function import_source_badge(string $source): string
                 <p class="text-muted mb-3">
                   Upload <strong>.xls</strong> or <strong>.xlsx</strong> (max <?= $maxMb ?> MB).
                   Columns are detected automatically. Unknown columns go to extra data.
-                  Duplicates are skipped by phone or business name.
+                  Duplicate phone or business name rows are imported as separate leads.
                 </p>
                 <form id="excelUploadForm" enctype="multipart/form-data" method="post" action="sql/excel_upload.php">
                   <input type="hidden" name="upload_excel" value="1">
