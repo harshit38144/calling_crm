@@ -85,7 +85,7 @@ if ($statRes) {
   <?php include 'includes/header-links.php'; ?>
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="custom/leads-page.css?v=20">
+  <link rel="stylesheet" href="custom/leads-page.css?v=21">
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse layout-fixed">
 <div class="wrapper">

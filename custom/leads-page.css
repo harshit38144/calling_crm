@@ -605,6 +605,36 @@ html:not(.crm-theme-light) .leads-settings-chip:hover {
 .crm-status-converted { background: #efe8fb; color: #6b46c1; }
 .crm-status-lost { background: #fde8ec; color: #c5304a; }
 
+/* Dark mode: global span { color: #d6d2cc !important } washes out status text */
+html:not(.crm-theme-light) .crm-status-pill {
+  border: 1px solid transparent;
+}
+html:not(.crm-theme-light) .crm-status-new {
+  background: #3d3214 !important;
+  color: #ffd24d !important;
+  border-color: #6b5720;
+}
+html:not(.crm-theme-light) .crm-status-contacted {
+  background: #143528 !important;
+  color: #6dffb8 !important;
+  border-color: #1f7a58;
+}
+html:not(.crm-theme-light) .crm-status-follow {
+  background: #142a40 !important;
+  color: #7ec8ff !important;
+  border-color: #2b6cb0;
+}
+html:not(.crm-theme-light) .crm-status-converted {
+  background: #2a1a40 !important;
+  color: #d4b0ff !important;
+  border-color: #6b46c1;
+}
+html:not(.crm-theme-light) .crm-status-lost {
+  background: #3a1520 !important;
+  color: #ff8fa3 !important;
+  border-color: #c5304a;
+}
+
 .crm-action-btns {
   display: inline-flex;
   align-items: center;
